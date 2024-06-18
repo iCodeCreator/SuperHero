@@ -57,7 +57,7 @@ struct Work: Decodable {
 }
 
 struct Image: Decodable {
-    let sm: String
+    let sm: URL
     
 }
 

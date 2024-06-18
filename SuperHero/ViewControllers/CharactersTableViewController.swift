@@ -12,28 +12,23 @@ final class CharactersTableViewController: UITableViewController {
     //MARK: Private properties
     private let networkManager = NetworkManager.shared
     private var superHeroes: [SuperHero] = []
-   
+    
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 70
         tableView.backgroundColor = .black
-        fetchSuperHero()
+        fetchSuperHero(from: SuperHeroesAPI.baseURL.url)
         setupNavigationBar()
     }
     
     // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let indexPath = tableView.indexPathForSelectedRow else { return }
-        let character = superHeroes[indexPath.row]
-        guard let detailVC = segue.destination as? CharacterDetailsViewController else { return }
-        detailVC.character = character
-    }
-
+   
+    
     
     // MARK: - Private methods
-  
+    
     private func setupNavigationBar() {
         title = "Super Heroes"
         let navBarAppearance = UINavigationBarAppearance()
@@ -41,15 +36,20 @@ final class CharactersTableViewController: UITableViewController {
         navBarAppearance.backgroundColor = .black
         navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-
+        
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
     
-    private func fetchSuperHero() {
-        networkManager.fetch(dataType: [SuperHero].self, url: SuperHeroesAPI.baseURL.url) { superHeroes in
-            self.superHeroes = superHeroes
-            self.tableView.reloadData()
+    private func fetchSuperHero(from url: URL) {
+        networkManager.fetch([SuperHero].self, from: url) { [weak self] result in
+            switch result {
+            case .success(let superHeroes):
+                self?.superHeroes = superHeroes
+                self?.tableView.reloadData()
+            case .failure(let error):
+                print(error)
+            }
         }
     }
 }
@@ -66,8 +66,8 @@ extension CharactersTableViewController {
             for: indexPath
         )
         guard let cell = cell as? TableViewCell else { return UITableViewCell() }
-        let character = superHeroes[indexPath.row]
-        cell.configure(with: character)
+        let superHero = superHeroes[indexPath.row]
+        cell.configure(with: superHero)
         return cell
     }
 }

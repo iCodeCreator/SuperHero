@@ -23,13 +23,18 @@ final class TableViewCell: UITableViewCell {
     private let networkManager = NetworkManager.shared
 
 // MARK: - Public methods
-func configure(with character: SuperHero?) {
-    guard let character else { return }
-    nameLabel.text = character.name
-    networkManager.fetchImage(from: character.images.sm) { data in
-        self.characterImageView.image = UIImage(data: data)
+func configure(with superHero: SuperHero?) {
+    guard let superHero else { return }
+    nameLabel.text = superHero.name
+    networkManager.fetchImage(from: superHero.images.sm) { [weak self] result in
+        switch result {
+        case .success(let imageData):
+            self?.characterImageView.image = UIImage(data: imageData)
+        case .failure(let error):
+            print(error)
+         }
+       }
     }
-    }
-    }
+}
 
 

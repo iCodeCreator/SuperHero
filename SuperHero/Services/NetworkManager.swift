@@ -19,32 +19,38 @@ final class NetworkManager {
     
     private init() {}
     
-    func fetch<T: Decodable>(dataType: T.Type, url: URL?, completion: @escaping(T) -> Void) {
-        guard let url = url else { return }
+    func fetch<T: Decodable>(_ type: T.Type, from url: URL?, completion: @escaping(Result<T, NetworkError>) -> Void) {
+        guard let url = url else {
+            completion(.failure(.noData))
+            return
+        }
         
         URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data else {
+            guard let data else {
+                completion(.failure(.noData))
+                print(error?.localizedDescription ?? "No error description")
                 return
             }
             do {
-                let decoder = JSONDecoder()
-                let superHeroes = try decoder.decode(T.self, from: data)
+                let dataModel = try JSONDecoder().decode(T.self, from: data)
                 DispatchQueue.main.async {
-                    completion(superHeroes.self)
+                    completion(.success(dataModel))
                 }
             } catch {
-                print(error)
+                completion(.failure(.decodingError))
             }
         }.resume()
     }
     
-    func fetchImage(from url: String, completion: @escaping(Data) -> Void) {
-        guard let url = URL(string: url) else { return }
+    func fetchImage(from url: URL, completion: @escaping(Result<Data, NetworkError>) -> Void) {
         DispatchQueue.global().async {
-            guard let imageData = try? Data(contentsOf: url) else { return }
-            DispatchQueue.main.async {
-            completion(imageData)
+            guard let imageData = try? Data(contentsOf: url) else {
+                completion(.failure(.noData))
+                return
             }
-        }        
+            DispatchQueue.main.async {
+                completion(.success(imageData))
+            }
+        }
     }
 }
