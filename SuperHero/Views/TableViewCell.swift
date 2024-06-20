@@ -13,10 +13,10 @@ final class TableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var characterImageView: UIImageView! {
         didSet {
-            characterImageView.contentMode = .scaleAspectFit
+            characterImageView.contentMode = .scaleAspectFill
+            characterImageView.layer.cornerRadius = 13
             characterImageView.clipsToBounds = true
-            characterImageView.layer.cornerRadius = characterImageView.frame.height / 2
-            characterImageView.backgroundColor = .white
+            characterImageView.backgroundColor = .black
         }
     }
     
@@ -26,7 +26,7 @@ final class TableViewCell: UITableViewCell {
 func configure(with superHero: SuperHero?) {
     guard let superHero else { return }
     nameLabel.text = superHero.name
-    networkManager.fetchImage(from: superHero.images.sm) { [weak self] result in
+    networkManager.fetchImage(from: superHero.images.md) { [weak self] result in
         switch result {
         case .success(let imageData):
             self?.characterImageView.image = UIImage(data: imageData)

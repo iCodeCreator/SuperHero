@@ -19,12 +19,17 @@ final class CharactersTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.rowHeight = 70
         tableView.backgroundColor = .black
-        fetchSuperHero(from: SuperHeroesAPI.baseURL.url)
+        fetchSuperHero(from: SuperHeroesAPI.baseURL.rawValue)
         setupNavigationBar()
     }
     
     // MARK: - Navigation
-   
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let indexPath = tableView.indexPathForSelectedRow else { return }
+        let superHero = superHeroes[indexPath.row]
+        let detailVC = segue.destination as? CharacterDetailsViewController
+        detailVC?.character = superHero
+    }
     
     
     // MARK: - Private methods
@@ -41,7 +46,7 @@ final class CharactersTableViewController: UITableViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
     
-    private func fetchSuperHero(from url: URL) {
+    private func fetchSuperHero(from url: String) {
         networkManager.fetch([SuperHero].self, from: url) { [weak self] result in
             switch result {
             case .success(let superHeroes):

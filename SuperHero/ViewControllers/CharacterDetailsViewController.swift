@@ -13,27 +13,55 @@ class CharacterDetailsViewController: UIViewController {
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var characterImageView: UIImageView! {
         didSet {
-            characterImageView.layer.cornerRadius = characterImageView.frame.width / 2
+            characterImageView.contentMode = .scaleAspectFill
+            characterImageView.layer.cornerRadius = 13
+            characterImageView.clipsToBounds = true
+            characterImageView.backgroundColor = .black
         }
     }
     // MARK: - Public properties
+    var character: SuperHero!
     
+    // MARK: - Private Properties
+    private let networkManager = NetworkManager.shared
+    private var spinnerView = UIActivityIndicatorView()
     
+    // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        title = character.name
+        descriptionLabel.text = character.description
+        showSpinner(in: characterImageView)
+        fetchImage()
     }
     
-
-    /*
+    
+    
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        let bioVC = segue.destination as? BiographyViewController
+        bioVC?.superHero = character
     }
-    */
-
+    
+    // MARK: - Private Methods
+    private func showSpinner(in view: UIView) {
+        spinnerView = UIActivityIndicatorView(style: .large)
+        spinnerView.color = .white
+        spinnerView.startAnimating()
+        spinnerView.center = view.center
+        spinnerView.hidesWhenStopped = true
+        view.addSubview(spinnerView)
+    }
+    
+    private func fetchImage() {
+        networkManager.fetchImage(from: character.images.md) { [weak self] result in
+            switch result {
+            case .success(let imageData):
+                self?.characterImageView.image = UIImage(data: imageData)
+                self?.spinnerView.stopAnimating()
+            case .failure(let error):
+                print(error)
+        }
+        }
+    }
 }

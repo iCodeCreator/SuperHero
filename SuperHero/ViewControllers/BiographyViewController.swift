@@ -8,24 +8,22 @@
 import UIKit
 
 class BiographyViewController: UIViewController {
-
-    @IBOutlet var BioDescriptionLabel: UILabel!
     
+    // MARK: - IBOutlets
+    @IBOutlet var bioDescriptionLabel: UILabel!
+    
+    // MARK: - Public properties
+    var superHero: SuperHero!
+    
+    // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        bioDescriptionLabel.text = superHero.biography.description
+        view.backgroundColor = UIColor(
+            red: 21/255,
+            green: 28/255,
+            blue: 43/255,
+            alpha: 1
+        )
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
