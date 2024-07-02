@@ -1,14 +1,16 @@
 //
-//  CharactersTableViewController.swift
+//  CharactersViewController.swift
 //  SuperHero
 //
-//  Created by abd ul’Karim 📚 on 10.06.2024.
+//  Created by abd ul’Karim 📚 on 01.07.2024.
 //
 
 import UIKit
+import Kingfisher
 
-final class CharactersTableViewController: UITableViewController {
-    
+
+final class CharactersViewController: UICollectionViewController {
+
     //MARK: Private properties
     private let networkManager = NetworkManager.shared
     private var superHeroes: [SuperHero] = []
@@ -17,20 +19,20 @@ final class CharactersTableViewController: UITableViewController {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = 70
-        tableView.backgroundColor = .black
         fetchSuperHero(from: SuperHeroesAPI.baseURL.rawValue)
         setupNavigationBar()
     }
     
     // MARK: - Navigation
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let indexPath = tableView.indexPathForSelectedRow else { return }
-        let superHero = superHeroes[indexPath.row]
-        let detailVC = segue.destination as? CharacterDetailsViewController
-        detailVC?.character = superHero
+        guard let indexPaths = collectionView.indexPathsForSelectedItems,
+        let indexPath = indexPaths.first else { return }
+        let superHero = superHeroes[indexPath.item]
+        if let detailVC = segue.destination as? CharacterDetailsViewController {
+            detailVC.superHero = superHero
+        }
     }
-    
     
     // MARK: - Private methods
     
@@ -39,8 +41,8 @@ final class CharactersTableViewController: UITableViewController {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
         navBarAppearance.backgroundColor = .black
-        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.orange]
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.orange]
         
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
@@ -51,7 +53,7 @@ final class CharactersTableViewController: UITableViewController {
             switch result {
             case .success(let superHeroes):
                 self?.superHeroes = superHeroes
-                self?.tableView.reloadData()
+                self?.collectionView.reloadData()
             case .failure(let error):
                 print(error)
             }
@@ -59,22 +61,21 @@ final class CharactersTableViewController: UITableViewController {
     }
 }
 
-// MARK: - UITableViewDataSource
-extension CharactersTableViewController {
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+// MARK: - UICollectionViewDataSource
+extension CharactersViewController {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         superHeroes.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(
-            withIdentifier: "cell",
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "cell",
             for: indexPath
         )
-        guard let cell = cell as? TableViewCell else { return UITableViewCell() }
-        let superHero = superHeroes[indexPath.row]
+        guard let cell = cell as? CollectionViewCell else { return UICollectionViewCell() }
+        let superHero = superHeroes[indexPath.item]
         cell.configure(with: superHero)
         return cell
     }
 }
-
-

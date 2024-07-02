@@ -7,17 +7,18 @@
 
 import UIKit
 
-class BiographyViewController: UIViewController {
+final class BiographyViewController: UIViewController {
     
     // MARK: - IBOutlets
     @IBOutlet var bioDescriptionLabel: UILabel!
     
     // MARK: - Public properties
-    var superHero: SuperHero!
+    var superHero: SuperHero?
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let superHero else { return }
         bioDescriptionLabel.text = superHero.biography.description
         view.backgroundColor = UIColor(
             red: 21/255,

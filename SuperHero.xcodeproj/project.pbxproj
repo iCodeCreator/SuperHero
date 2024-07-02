@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		834BF6CB2C32E35B006455D7 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 834BF6CA2C32E35B006455D7 /* Kingfisher */; };
+		834BF6CD2C32F32D006455D7 /* CharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834BF6CC2C32F32D006455D7 /* CharactersViewController.swift */; };
+		834BF6CF2C333E5D006455D7 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834BF6CE2C333E5D006455D7 /* CollectionViewCell.swift */; };
 		8359332E2C1883A900632CAD /* SuperHero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8359332D2C1883A900632CAD /* SuperHero.swift */; };
-		835933312C1891B600632CAD /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835933302C1891B600632CAD /* TableViewCell.swift */; };
 		835933332C18980800632CAD /* CharacterDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835933322C18980800632CAD /* CharacterDetailsViewController.swift */; };
 		835933352C18999F00632CAD /* BiographyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835933342C18999F00632CAD /* BiographyViewController.swift */; };
 		837283122C17304D0008231B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837283112C17304D0008231B /* AppDelegate.swift */; };
@@ -17,12 +19,12 @@
 		8372831B2C17304D0008231B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8372831A2C17304D0008231B /* Assets.xcassets */; };
 		8372831E2C17304D0008231B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8372831C2C17304D0008231B /* LaunchScreen.storyboard */; };
 		8372832B2C1731E70008231B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372832A2C1731E70008231B /* NetworkManager.swift */; };
-		8372832F2C17372A0008231B /* CharactersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8372832E2C17372A0008231B /* CharactersTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		834BF6CC2C32F32D006455D7 /* CharactersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersViewController.swift; sourceTree = "<group>"; };
+		834BF6CE2C333E5D006455D7 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		8359332D2C1883A900632CAD /* SuperHero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperHero.swift; sourceTree = "<group>"; };
-		835933302C1891B600632CAD /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		835933322C18980800632CAD /* CharacterDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsViewController.swift; sourceTree = "<group>"; };
 		835933342C18999F00632CAD /* BiographyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiographyViewController.swift; sourceTree = "<group>"; };
 		8372830E2C17304D0008231B /* SuperHero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperHero.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -33,7 +35,6 @@
 		8372831D2C17304D0008231B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8372831F2C17304D0008231B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8372832A2C1731E70008231B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		8372832E2C17372A0008231B /* CharactersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				834BF6CB2C32E35B006455D7 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,7 +109,7 @@
 		837283282C1731570008231B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				8372832E2C17372A0008231B /* CharactersTableViewController.swift */,
+				834BF6CC2C32F32D006455D7 /* CharactersViewController.swift */,
 				835933322C18980800632CAD /* CharacterDetailsViewController.swift */,
 				835933342C18999F00632CAD /* BiographyViewController.swift */,
 			);
@@ -125,7 +127,7 @@
 		8372832C2C17320B0008231B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				835933302C1891B600632CAD /* TableViewCell.swift */,
+				834BF6CE2C333E5D006455D7 /* CollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -154,6 +156,9 @@
 			dependencies = (
 			);
 			name = SuperHero;
+			packageProductDependencies = (
+				834BF6CA2C32E35B006455D7 /* Kingfisher */,
+			);
 			productName = SuperHero;
 			productReference = 8372830E2C17304D0008231B /* SuperHero.app */;
 			productType = "com.apple.product-type.application";
@@ -182,6 +187,9 @@
 				Base,
 			);
 			mainGroup = 837283052C17304D0008231B;
+			packageReferences = (
+				834BF6C92C32E35B006455D7 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 8372830F2C17304D0008231B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -209,14 +217,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				834BF6CF2C333E5D006455D7 /* CollectionViewCell.swift in Sources */,
 				835933332C18980800632CAD /* CharacterDetailsViewController.swift in Sources */,
 				8359332E2C1883A900632CAD /* SuperHero.swift in Sources */,
 				8372832B2C1731E70008231B /* NetworkManager.swift in Sources */,
-				8372832F2C17372A0008231B /* CharactersTableViewController.swift in Sources */,
 				835933352C18999F00632CAD /* BiographyViewController.swift in Sources */,
-				835933312C1891B600632CAD /* TableViewCell.swift in Sources */,
 				837283122C17304D0008231B /* AppDelegate.swift in Sources */,
 				837283142C17304D0008231B /* SceneDelegate.swift in Sources */,
+				834BF6CD2C32F32D006455D7 /* CharactersViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,6 +453,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		834BF6C92C32E35B006455D7 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		834BF6CA2C32E35B006455D7 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 834BF6C92C32E35B006455D7 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 837283062C17304D0008231B /* Project object */;
 }
